@@ -1,15 +1,30 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 22
     buildToolsVersion "23.0.0"
 
     defaultConfig {
-        minSdkVersion 5
-        targetSdkVersion 23
+        minSdkVersion 14
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
+
+    sourceSets {
+        main {
+            java.srcDirs = [
+                    'src/main/java',
+            ]
+            res.srcDirs = [
+                    'src/main/res',
+            ]
+            assets.srcDirs = [
+                    'src/main/assets',
+            ]
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -22,3 +37,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
 }
+
+
+apply from: 'maven-push.gradle'

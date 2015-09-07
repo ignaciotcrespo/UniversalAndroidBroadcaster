@@ -92,23 +92,19 @@ afterEvaluate { project ->
         sign configurations.archives
     }
 
-    //task androidJavadocs(type: Javadoc) {
-        //source = android.sourceSets.main.allJava
-    //}
-
     task myJavadocs(type: Javadoc) {
-        source = sourceSets.main.allJava
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     }
 
     task javadocsJar(type: Jar, dependsOn: myJavadocs) {
         classifier = 'javadoc'
         from myJavadocs.destinationDir
     }
-//
-    task sourcesJar(type: Jar, dependsOn:classes) {
+
+    task sourcesJar(type: Jar) {
         classifier = 'sources'
-        from sourceSets.main.allJava
-        //sourceSets.main.java.sourceFiles
+        from android.sourceSets.main.java.srcDirs
     }
 
     artifacts {
