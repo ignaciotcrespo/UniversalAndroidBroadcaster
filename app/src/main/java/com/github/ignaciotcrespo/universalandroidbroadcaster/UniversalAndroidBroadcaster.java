@@ -6,9 +6,13 @@ import android.content.Intent;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by crespo on 07/09/15.
+ * Broadcasts objects of any kind, usually for logging purposes, but can be used for anything.
  */
 public class UniversalAndroidBroadcaster {
+
+    public static final String CONTENT_XML = "text/xml";
+    public static final String CONTENT_JSON = "application/json";
+    public static final String CONTENT_SQL = "text/sql";
 
     private static WeakReference<Context> sGlobalContext = new WeakReference<>(null);
     private static String sGlobalSession = "" + System.currentTimeMillis();
@@ -26,6 +30,13 @@ public class UniversalAndroidBroadcaster {
         service.putExtra("app", context.getPackageName());
     }
 
+    /**
+     * Broadcasts an object. It needs the context, so be sure to initialize the broadcaster first using {@link #initialize(Context)}
+     *
+     * @param object      The object to broadcast. <b>It will broadcast the toString() method of the object</b>
+     * @param type        A custom text to identify the object. Can be anything.
+     * @param contentType The content type of the object to manage it later in a proper way. Check constants {@link #CONTENT_XML}, etc
+     */
     public static void broadcastObject(Object object, String type, String contentType) {
         Context context = sGlobalContext.get();
         if (context != null) {
@@ -33,6 +44,14 @@ public class UniversalAndroidBroadcaster {
         }
     }
 
+    /**
+     * Broadcasts an object.
+     *
+     * @param context     The context to send the broadcast
+     * @param object      The object to broadcast. <b>It will broadcast the toString() method of the object</b>
+     * @param type        A custom text to identify the object. Can be anything.
+     * @param contentType The content type of the object to manage it later in a proper way. Check constants {@link #CONTENT_XML}, etc
+     */
     public static void broadcastObject(Context context, Object object, String type, String contentType) {
         final Intent intent = new Intent("com.github.ignaciotcrespo.universalbroadcaster.ADD_OBJECT");
         intent.addCategory("com.github.ignaciotcrespo.universalbroadcaster");

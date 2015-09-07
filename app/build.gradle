@@ -36,6 +36,7 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.github.ignaciotcrespo:frutilla:0.7.0'
 }
 
 
