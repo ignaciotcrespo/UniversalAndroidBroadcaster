@@ -5,6 +5,9 @@ import android.test.mock.MockContext;
 
 import org.junit.Assert;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+
 public class ContextForTest extends MockContext {
 
     private Intent mBroadcasted;
@@ -24,7 +27,13 @@ public class ContextForTest extends MockContext {
     }
 
     public void assertBroadcast(String action, String extraKey, Object extraValue) {
-        junit.framework.Assert.assertEquals(action, mBroadcasted.getAction());
-        junit.framework.Assert.assertEquals(extraValue, mBroadcasted.getExtras().get(extraKey));
+        assertEquals(action, mBroadcasted.getAction());
+        assertEquals(extraValue, mBroadcasted.getExtras().get(extraKey));
     }
+
+    public void assertBroadcastWithoutExtra(String action, String extraKey) {
+        assertEquals(action, mBroadcasted.getAction());
+        assertFalse(mBroadcasted.getExtras().containsKey(extraKey));
+    }
+
 }

@@ -2,6 +2,7 @@ package com.github.ignaciotcrespo.universalandroidbroadcaster;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import java.lang.ref.WeakReference;
 
@@ -23,10 +24,14 @@ public class UniversalAndroidBroadcaster {
 
     private static void addExtras(Object object, String type, String contentType, Context context, Intent service) {
         service.putExtra("object", object.toString());
-        service.putExtra("type", type);
+        if (!TextUtils.isEmpty(type)) {
+            service.putExtra("type", type);
+        }
         service.putExtra("session", sGlobalSession);
         service.putExtra("timestamp", System.currentTimeMillis());
-        service.putExtra("content-type", contentType);
+        if (!TextUtils.isEmpty(contentType)) {
+            service.putExtra("content-type", contentType);
+        }
         service.putExtra("app", context.getPackageName());
     }
 

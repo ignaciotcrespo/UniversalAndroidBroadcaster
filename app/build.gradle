@@ -9,6 +9,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     sourceSets {
@@ -21,6 +22,11 @@ android {
             ]
             assets.srcDirs = [
                     'src/main/assets',
+            ]
+        }
+        androidTest {
+            java.srcDirs = [
+                    'src/androidTest/java',
             ]
         }
     }
@@ -37,6 +43,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     androidTestCompile 'com.github.ignaciotcrespo:frutilla:0.7.0'
+    androidTestCompile 'com.android.support.test:runner:0.3'
 }
 
 
